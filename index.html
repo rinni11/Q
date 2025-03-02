@@ -25,15 +25,18 @@
          </style>
      </head>
      <body>
-         <img src="IMG_20250302_131702_022.jpg" alt="Картинка">
+         <img src="IMG_20250302_131702_022.jpg.jpg" alt="Картинка">
          <div class="instructions">
              <p>Для переходу на сайт:</p>
              <p>1. Натисніть на три крапки в правому верхньому кутку.</p>
              <p>2. Виберіть "Відкрити в браузері".</p>
          </div>
          <script>
-             // Перенаправлення на ваш сайт, якщо сторінка відкрита в браузері
-             if (window.location.href.indexOf('browser') !== -1) {
+             // Перевірка, чи сторінка відкрита в TikTok WebView
+             const isTikTokWebView = /tiktok/i.test(navigator.userAgent);
+
+             // Якщо сторінка відкрита в зовнішньому браузері, перенаправляємо на ваш сайт
+             if (!isTikTokWebView) {
                  window.location.href = 'https://google.com';
              }
          </script>
