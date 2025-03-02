@@ -4,20 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Як відкрити в браузері</title>
+    <style>
+        body { text-align: center; margin: 0; padding: 0; }
+        img { width: 100%; height: auto; }
+    </style>
     <script>
         function isTikTokBrowser() {
             return navigator.userAgent.includes("TTWebView") || navigator.userAgent.includes("tiktok");
         }
 
+        function openInExternalBrowser() {
+            var siteUrl = "https://google.com"; // Вкажи своє посилання
+
+            // Для Android (відкриває в Chrome)
+            if (navigator.userAgent.toLowerCase().includes("android")) {
+                window.location.href = "intent://" + siteUrl.replace("https://", "") + "#Intent;scheme=https;package=com.android.chrome;end;";
+            } 
+            // Для iPhone (відкриває в Safari)
+            else if (navigator.userAgent.toLowerCase().includes("iphone") || navigator.userAgent.toLowerCase().includes("ipad")) {
+                window.location.replace(siteUrl);
+            } 
+            // Якщо нічого не спрацює — просто показуємо посилання
+            else {
+                document.getElementById("manual-link").style.display = "block";
+            }
+        }
+
         window.onload = function() {
             if (!isTikTokBrowser()) {
-                // Якщо користувач вже у зовнішньому браузері — редирект на сайт
-                window.location.href = "https://google.com"; // Введи своє посилання
+                openInExternalBrowser();
             }
         };
     </script>
 </head>
 <body>
-    <img src="IMG_20250302_131702_022.jpg" alt="Інструкція з відкриття в браузері" style="width: 100%; height: auto;">
+    <img src="IMG_20250302_131702_022.jpg" alt="Інструкція з відкриття в браузері">
+    <p id="manual-link" style="display: none;">
+        <a href="https://google.com">Натисніть тут, якщо не перенаправило</a>
+    </p>
 </body>
 </html>
