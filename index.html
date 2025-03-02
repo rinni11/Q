@@ -1,44 +1,19 @@
 <!DOCTYPE html>
-     <html lang="uk">
-     <head>
-         <meta charset="UTF-8">
-         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-         <title>Відкрити в браузері</title>
-         <style>
-             body {
-                 display: flex;
-                 flex-direction: column;
-                 align-items: center;
-                 justify-content: center;
-                 height: 100vh;
-                 margin: 0;
-                 font-family: Arial, sans-serif;
-             }
-             img {
-                 max-width: 100%;
-                 height: auto;
-             }
-             .instructions {
-                 margin-top: 20px;
-                 text-align: center;
-             }
-         </style>
-     </head>
-     <body>
-         <img src="IMG_20250302_131702_022.jpg" alt="Картинка">
-         <div class="instructions">
-             <p>Для переходу на сайт:</p>
-             <p>1. Натисніть на три крапки в правому верхньому кутку.</p>
-             <p>2. Виберіть "Відкрити в браузері".</p>
-         </div>
-         <script>
-             // Перевірка, чи сторінка відкрита в TikTok WebView
-             const isTikTokWebView = /tiktok/i.test(navigator.userAgent);
-
-             // Якщо сторінка відкрита в зовнішньому браузері, перенаправляємо на ваш сайт
-             if (!isTikTokWebView) {
-                 window.location.href = 'https://google.com'; // Замініть на ваш реальний сайт
-             }
-         </script>
-     </body>
-     </html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інструкція</title>
+</head>
+<body>
+    <img src="IMG_20250302_131702_022.jpg" alt="Інструкція">
+    <p>Натисніть на три крапки в правому верхньому кутку і виберіть "Відкрити в браузері".</p>
+    <script>
+        function redirectToSite() {
+            window.location.href = "https://google.com";
+        }
+        // Автоматичне перенаправлення через 5 секунд
+        setTimeout(redirectToSite, 5000);
+    </script>
+</body>
+</html>
