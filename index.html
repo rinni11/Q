@@ -4,10 +4,38 @@
          <meta charset="UTF-8">
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <title>Відкрити в браузері</title>
+         <style>
+             body {
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: center;
+                 height: 100vh;
+                 margin: 0;
+                 font-family: Arial, sans-serif;
+             }
+             img {
+                 max-width: 100%;
+                 height: auto;
+             }
+             .instructions {
+                 margin-top: 20px;
+                 text-align: center;
+             }
+         </style>
      </head>
      <body>
          <img src="IMG_20250302_131702_022.jpg" alt="Картинка">
-         <p>Натисніть кнопку нижче, щоб відкрити в браузері:</p>
-         <button onclick="window.open('https://google.com', '_blank')">Відкрити в браузері</button>
+         <div class="instructions">
+             <p>Для переходу на сайт:</p>
+             <p>1. Натисніть на три крапки в правому верхньому кутку.</p>
+             <p>2. Виберіть "Відкрити в браузері".</p>
+         </div>
+         <script>
+             // Перенаправлення на ваш сайт, якщо сторінка відкрита в браузері
+             if (window.location.href.indexOf('browser') !== -1) {
+                 window.location.href = 'https://google.com';
+             }
+         </script>
      </body>
      </html>
