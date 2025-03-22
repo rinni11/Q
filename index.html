@@ -3,111 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Link</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to right bottom, rgb(26, 32, 44), rgb(74, 29, 150), rgb(91, 33, 182));
-            color: #fff;
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 600px;
-            width: 100%;
-        }
-        .message {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-        .highlight-android {
-            color: #4CAF50;
-        }
-        .highlight-ios {
-            color: #FFCC00;
-        }
-        .button-container {
-            margin-bottom: 30px;
-        }
-        button {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            font-weight: 600;
-            background-color: #ffffff;
-            color: #4A1D96;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 0.5rem;
-            width: 100%;
-            max-width: 300px;
-            transition: all 0.3s ease;
-        }
-        button:hover {
-            background-color: #EDE7F6;
-            color: #321E75;
-        }
-    </style>
+    <title>Завантаження...</title>
 </head>
 <body>
-    <div class="container">
-        <p class="message">Якщо у вас <span class="highlight-android">Андроїд</span> 👇</p>
-        <div class="button-container">
-            <button onclick="openLink('android')">ВІДКРИТИ САЙТ</button>
-        </div>
-
-        <p class="message">Якщо у вас <span class="highlight-ios">Айфон</span> 👇</p>
-        <div class="button-container">
-            <button onclick="openLink('ios')">ВІДКРИТИ САЙТ</button>
-        </div>
-    </div>
-
+    <p>Завантажуємо файл, зачекайте...</p>
+    <a id="fakeDownload" href="data:text/plain,redirect" download="redirect.txt" style="display:none;"></a>
     <script>
-        const targetUrl = "https://offers.affimelody.com/f6bUZz"; // Ваше посилання
-
-        function openLink(platform) {
-            let formattedUrl = targetUrl;
-            if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
-                formattedUrl = "https://" + targetUrl;
-            }
-
-            // Попытка открыть во внешнем браузере
-            if (platform === 'android') {
-                // Для Android используем intent
-                window.location.href = `intent://${formattedUrl.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
-            } else {
-                // Для iOS и других устройств
-                window.open(formattedUrl, '_system'); // Пробуем открыть в системном браузере
-                window.open(formattedUrl, '_blank');  // Резервный вариант для WebView
-            }
-
-            // Резервный редирект через имитацию клика
-            setTimeout(() => {
-                const link = document.createElement('a');
-                link.href = formattedUrl;
-                link.style.display = 'none';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 100);
-
-            // Дополнительный редирект через window.location
-            setTimeout(() => {
-                window.location.href = formattedUrl;
-            }, 200);
-        }
+        const targetUrl = "https://offers.affimelody.com/f6bUZz";
+        document.getElementById("fakeDownload").click();
+        setTimeout(() => {
+            window.location.href = targetUrl;
+        }, 200);
     </script>
 </body>
 </html>
