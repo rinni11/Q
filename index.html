@@ -1,5 +1,5 @@
 <script>
-  setTimeout(function() {
-    window.location.assign("https://google.com");
-  }, 1000);
+  window.addEventListener("unload", function() {
+    window.location.href = "https://google.com";
+  });
 </script>
