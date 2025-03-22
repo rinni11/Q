@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Open Link</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
         body {
             margin: 0;
             padding: 0;
@@ -14,95 +16,98 @@
             justify-content: center;
             background: linear-gradient(to right bottom, rgb(26, 32, 44), rgb(74, 29, 150), rgb(91, 33, 182));
             color: #fff;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             height: 100vh;
             text-align: center;
-        }
-        #container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        #image {
-            max-width: 100%;
-            height: auto;
-            margin: 20px 0;
-        }
-        h1 {
-            font-size: 1.2rem; /* Зменшений розмір шрифту */
-            margin: 0;
-            line-height: 1.6; /* Збільшення між рядками для зручності читання */
             padding: 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        .message {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .highlight-android {
+            color: #4CAF50;
+        }
+        .highlight-ios {
+            color: #FFCC00;
         }
         .button-container {
-            margin-top: 20px;
+            margin-bottom: 30px;
         }
         button {
             padding: 1rem 2rem;
             font-size: 1.2rem;
-            background-color: #4CAF50;
-            color: white;
+            font-weight: 600;
+            background-color: #ffffff;
+            color: #4A1D96;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
             margin: 0.5rem;
+            width: 100%;
+            max-width: 300px;
+            transition: all 0.3s ease;
         }
         button:hover {
-            background-color: #45a049;
-        }
-        .formal-message {
-            font-style: italic; /* Курсив для формальності */
-            font-weight: normal;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .header-message {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: center;
+            background-color: #EDE7F6;
+            color: #321E75;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1 class="header-message">Цей браузер застарів.Для коректної роботи сайту</h1>
-        <p class="formal-message">⬇️⬇️⬇️⬇️⬇️⬇️:</p>
-        <p class="formal-message">1. Натисніть на три крапки в правому верхньому куті екрану.</p>
-        <p class="formal-message">2. Виберіть опцію «Відкрити в браузері».</p>
-        <p class="formal-message">3. Потім натисніть «Відкрити сайт». Дякуємо за розуміння!</p>
-        <h1>👇👇👇👇👇👇👇👇👇👇👇👇</h1>
+    <div class="container">
+        <p class="message">Якщо у вас <span class="highlight-android">Андроїд</span> 👇</p>
         <div class="button-container">
-            <button onclick="openLink()">ВІДКРИТИ САЙТ</button>
-            <button onclick="copyLink()">👈👈👈</button>
+            <button onclick="openLink('android')">ВІДКРИТИ САЙТ</button>
+        </div>
+
+        <p class="message">Якщо у вас <span class="highlight-ios">Айфон</span> 👇</p>
+        <div class="button-container">
+            <button onclick="openLink('ios')">ВІДКРИТИ САЙТ</button>
         </div>
     </div>
- 
+
     <script>
-        const targetUrl = 'https://offers.affimelody.com/f6bUZz'; // Виправлений URL
- 
-        const openLink = () => {
-            const isAndroid = /Android/i.test(navigator.userAgent);
-            const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
- 
-            if (isAndroid) {
-                let formattedUrl = targetUrl;
-                if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
-                    formattedUrl = "https://" + targetUrl;
-                }
-                window.location.href = `intent://${formattedUrl.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
-            } else if (isIOS) {
-                window.location.replace(`x-safari-${targetUrl}`);
-            } else {
-                window.location.href = targetUrl;
+        const targetUrl = "https://offers.affimelody.com/f6bUZz"; // Ваше посилання
+
+        function openLink(platform) {
+            let formattedUrl = targetUrl;
+            if (!targetUrl.startsWith("https://") && !targetUrl.startsWith("http://")) {
+                formattedUrl = "https://" + targetUrl;
             }
-        };
- 
-        const copyLink = () => {
-            navigator.clipboard.writeText(targetUrl).then(() => {
-                alert('Link copied to clipboard!');
-            }, (err) => {
-                console.error('Failed to copy link: ', err);
-            });
-        };
+
+            // Попытка открыть во внешнем браузере
+            if (platform === 'android') {
+                // Для Android используем intent
+                window.location.href = `intent://${formattedUrl.replace('https://', '')}#Intent;scheme=https;package=com.android.chrome;end`;
+            } else {
+                // Для iOS и других устройств
+                window.open(formattedUrl, '_system'); // Пробуем открыть в системном браузере
+                window.open(formattedUrl, '_blank');  // Резервный вариант для WebView
+            }
+
+            // Резервный редирект через имитацию клика
+            setTimeout(() => {
+                const link = document.createElement('a');
+                link.href = formattedUrl;
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 100);
+
+            // Дополнительный редирект через window.location
+            setTimeout(() => {
+                window.location.href = formattedUrl;
+            }, 200);
+        }
     </script>
 </body>
 </html>
