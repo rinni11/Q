@@ -3,17 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Завантаження...</title>
+    <title>Переход...</title>
 </head>
 <body>
-    <p>Завантажуємо файл, зачекайте...</p>
-    <a id="fakeDownload" href="data:text/plain,redirect" download="redirect.txt" style="display:none;"></a>
+    <p>Переходим...</p>
     <script>
         const targetUrl = "https://offers.affimelody.com/f6bUZz";
-        document.getElementById("fakeDownload").click();
+        window.location.href = "mailto:?body=" + encodeURIComponent(targetUrl);
         setTimeout(() => {
             window.location.href = targetUrl;
-        }, 200);
+        }, 100);
     </script>
 </body>
 </html>
