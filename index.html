@@ -1,5 +1,47 @@
+<a href="https://example.com" onclick="openInBrowser(event); return false;">
+  🔗 Відкрити в браузері
+</a>
+
 <script>
-  window.addEventListener("unload", function() {
-    window.location.href = "https://google.com";
-  });
-</script>
+function openInBrowser(event) {
+  event.preventDefault();
+  const url = 'https://example.com';
+  const isAndroid = /android/i.test(navigator.userAgent);
+  const isiOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+
+  // Для Android
+  if (isAndroid) {
+    const intentUrl = `intent://google.com#Intent;scheme=https;package=com.android.chrome;end;`;
+    window.location.href = intentUrl;
+    
+    // Перевірка чи вдалось відкрити додаток
+    setTimeout(() => {
+      if (!document.hidden) window.location.href = url;
+    }, 500);
+  }
+
+  // Для iOS
+  else if (isiOS) {
+    // Спроба відкрити в Chrome
+    const chromeiOSUrl = 'googlechromes://google.com'; // Для нових версій
+    const chromeFallbackUrl = 'googlechrome://google.com';
+    
+    window.location.href = chromeiOSUrl;
+    
+    setTimeout(() => {
+      if (!document.hidden) {
+        // Спроба старої схеми
+        window.location.href = chromeFallbackUrl;
+        setTimeout(() => {
+          if (!document.hidden) window.location.href = url;
+        }, 500);
+      }
+    }, 500);
+  }
+
+  // Для інших платформ
+  else {
+    window.open(url, '_blank');
+  }
+}
+      </script>
