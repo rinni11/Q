@@ -1,19 +1,5 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Інструкція</title>
-</head>
-<body>
-    <img src="IMG_20250302_131702_022.jpg" alt="Інструкція">
-    <p>Натисніть на три крапки в правому верхньому кутку і виберіть "Відкрити в браузері".</p>
-    <script>
-        function redirectToSite() {
-            window.location.href = "https://Google.com";
-        }
-        // Автоматичне перенаправлення через 3 секунд
-        setTimeout(redirectToSite, 3000);
-    </script>
-</body>
-</html>
+<script>
+  setTimeout(function() {
+    location.replace("https://google.com");
+  }, 1000);
+</script>
